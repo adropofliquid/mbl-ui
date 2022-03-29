@@ -1,0 +1,53 @@
+<html>
+<head>
+    <style type="text/css">
+
+        div{
+            background-color: #cfe2f3;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 50px;
+            text-align: center;
+            width: 30%;
+        }
+        a{
+            background-color: #0000fe;
+            color: #fff;
+            padding: 5px 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+
+    <b> Hello Jim</b>
+    <br><br>
+    <p> You have <span id="unread">0</span> unread messages out of <span id="total">0</span> total</p>
+    <br><br>
+    <a href="inbox.html">View Messages</a>
+</div>
+
+<script>
+    let url = "http://localhost:8080/mail/jim";
+
+    function doIndex(myJson){
+
+        let unread = document.getElementById("unread");
+        let total = document.getElementById("total");
+        unread.innerHTML = myJson.unread;
+        total.innerHTML = myJson.total;
+    }
+
+    const inboxCount = async () => {
+        const response = await fetch(url);
+        const myJson = await response.json(); //extract JSON from the http response
+        //console.log(myJson);
+        doIndex(myJson)
+    };
+
+    inboxCount();
+
+</script>
+</body>
+</html>
